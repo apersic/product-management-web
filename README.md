@@ -1,6 +1,6 @@
 # Product management web
 
-Angular app for viewing, creating, updating, and deleting products. It calls the product management API. There is no database in this repo.
+Angular app for viewing, creating, updating, and deleting products. It calls the product management API. There is no database in this repo. The screens and the calls they make are in [specification.md](specification.md).
 
 ## Setup instructions
 
