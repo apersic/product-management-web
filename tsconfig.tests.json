@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "qunit"],
+    "noEmit": true,
+    "moduleResolution": "bundler"
+  },
+  "include": ["tests/**/*-test.ts", "e2e/**/*.ts", "playwright.config.ts"]
+}

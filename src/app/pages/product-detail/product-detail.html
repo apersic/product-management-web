@@ -1,0 +1,68 @@
+<p>
+  <a routerLink="/" class="text-control">
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+      <path
+        d="M10.5 3.5 5.5 8l5 4.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+    Back to products
+  </a>
+</p>
+
+@if (parsedId() === null || state().status === 'missing') {
+  <h1>Product not found</h1>
+  <p>This product is not in the catalog.</p>
+} @else if (state().status === 'loading') {
+  <p class="status">Loading product</p>
+} @else if (errorMessage(); as message) {
+  <p class="status" role="alert">{{ message }}</p>
+  <button type="button" class="secondary" (click)="retry()">Retry</button>
+}
+
+@if (product(); as product) {
+  <article class="detail">
+    <img [src]="thumbnailSrc(product.title)" alt="" width="320" height="320" />
+    <div>
+      <h1>{{ product.title }}</h1>
+      <p class="price">{{ formatPrice(product.price) }}</p>
+      <p class="category">{{ categoryLabel(product.category) }}</p>
+      @if (product.tags.length > 0) {
+        <ul class="tags">
+          @for (tag of product.tags; track $index) {
+            <li>{{ tag }}</li>
+          }
+        </ul>
+      }
+      @if (product.description !== '') {
+        <p class="description">{{ product.description }}</p>
+      }
+      <div class="actions">
+        <button type="button" (click)="editing.set(true)">Edit product</button>
+        <button type="button" class="text-control danger" (click)="askDelete()">Delete</button>
+      </div>
+    </div>
+  </article>
+
+  @if (editing()) {
+    <app-product-form-modal
+      mode="edit"
+      [product]="product"
+      (saved)="remember($event)"
+      (closed)="finish()"
+    />
+  }
+
+  @if (confirming()) {
+    <app-confirm-modal
+      heading="Delete product"
+      [message]="'Delete ' + product.title + '?'"
+      (confirmed)="rememberDelete()"
+      (closed)="finishDelete()"
+    />
+  }
+}

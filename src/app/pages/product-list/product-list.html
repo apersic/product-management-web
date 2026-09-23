@@ -1,0 +1,50 @@
+<div class="toolbar">
+  <h1>Catalog</h1>
+  <label class="search">
+    Search
+    <input type="search" [value]="query()" (input)="onSearch($event)" />
+  </label>
+  <button type="button" (click)="creating.set(true)">New product</button>
+</div>
+
+@if (state().status === 'loading') {
+  <p class="status">Loading products</p>
+}
+
+@if (errorMessage(); as message) {
+  <p class="status" role="alert">{{ message }}</p>
+  <button type="button" class="secondary" (click)="retry()">Retry</button>
+}
+
+@if (page(); as page) {
+  @if (emptyMessage(); as empty) {
+    <p class="status">{{ empty }}</p>
+  } @else {
+    <ul class="grid">
+      @for (product of page.products; track product.id) {
+        <li class="card">
+          <a [routerLink]="['/products', product.id]">
+            <img [src]="thumbnailSrc(product.title)" alt="" width="320" height="320" />
+            <h2>{{ product.title }}</h2>
+            <p>{{ formatPrice(product.price) }}</p>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+
+  @if (page.total > 0) {
+    <app-pager
+      [total]="page.total"
+      [skip]="page.skip"
+      [pageSize]="pageSize"
+      (previous)="previous()"
+      (next)="next()"
+      (select)="go($event)"
+    />
+  }
+}
+
+@if (creating()) {
+  <app-product-form-modal mode="create" (saved)="remember($event)" (closed)="finish()" />
+}

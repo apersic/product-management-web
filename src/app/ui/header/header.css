@@ -1,0 +1,16 @@
+.site-header {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  padding: 0 1.25rem;
+  background: #fffdf8;
+  border-bottom: 1px solid var(--line);
+}
+
+.wordmark {
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}

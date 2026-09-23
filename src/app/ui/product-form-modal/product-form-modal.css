@@ -1,0 +1,64 @@
+dialog {
+  width: min(32rem, calc(100vw - 2rem));
+  border: 0;
+  border-radius: 1rem;
+  padding: 0;
+  background: var(--card);
+  color: var(--ink);
+}
+
+dialog::backdrop {
+  background: rgb(28 25 23 / 0.45);
+}
+
+form {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.25rem;
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+}
+
+label {
+  margin-top: 0.55rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.hint {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+  background: #fff;
+  color: inherit;
+}
+
+textarea {
+  resize: none;
+}
+
+.field-error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.875rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}

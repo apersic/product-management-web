@@ -6,7 +6,13 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "qunit --require tsx/cjs \"tests/**/*-test.ts\"",
+    "test:e2e": "playwright install chromium chromium-headless-shell && playwright test",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.tests.json",
+    "lint": "oxlint src tests e2e playwright.config.ts",
+    "format": "prettier --write .",
+    "lintStaged": "lint-staged",
+    "prepare": "husky",
     "serve:ssr:product-management-web": "node dist/product-management-web/server/server.mjs"
   },
   "private": true,
@@ -28,14 +34,25 @@
     "@angular/build": "^21.2.24",
     "@angular/cli": "^21.2.24",
     "@angular/compiler-cli": "^21.2.0",
-    "@tailwindcss/postcss": "^4.1.12",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
+    "@types/qunit": "^2.19.14",
+    "husky": "^9.1.7",
     "jsdom": "^28.0.0",
-    "postcss": "^8.5.3",
+    "lint-staged": "^17.5.1",
+    "oxlint": "^1.85.0",
     "prettier": "^3.8.1",
-    "tailwindcss": "^4.1.12",
+    "qunit": "^2.26.0",
+    "tsx": "^4.23.15",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "oxlint --fix"
+    ]
   }
 }

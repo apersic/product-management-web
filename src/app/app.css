@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.skip {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 30;
+  transform: translateY(-200%);
+  background: var(--card);
+  color: var(--ink);
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.5rem;
+}
+
+.skip:focus {
+  transform: none;
+}
+
+main {
+  width: min(72rem, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+}

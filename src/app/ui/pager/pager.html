@@ -1,0 +1,24 @@
+<nav class="pager" aria-label="Pages">
+  <button type="button" class="text-control" (click)="previous.emit()" [disabled]="!hasPrevious()">
+    Previous
+  </button>
+  @for (control of controls(); track control.key) {
+    @if (control.kind === 'gap') {
+      <span aria-hidden="true">…</span>
+    } @else {
+      <button
+        type="button"
+        class="text-control"
+        [class.current]="control.current"
+        [attr.aria-current]="control.current ? 'page' : null"
+        [attr.aria-label]="'Page ' + control.page"
+        (click)="select.emit(control.skip)"
+      >
+        {{ control.page }}
+      </button>
+    }
+  }
+  <button type="button" class="text-control" (click)="next.emit()" [disabled]="!hasNext()">
+    Next
+  </button>
+</nav>

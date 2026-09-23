@@ -1,0 +1,65 @@
+<dialog #dialog aria-labelledby="product-form-title" (close)="onClose()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2 id="product-form-title">{{ heading() }}</h2>
+
+    <label for="product-title">Title</label>
+    <input
+      id="product-title"
+      formControlName="title"
+      autocomplete="off"
+      [attr.aria-invalid]="show('title')"
+      [attr.aria-describedby]="show('title') ? 'product-title-error' : null"
+    />
+    @if (show('title')) {
+      <p id="product-title-error" class="field-error">{{ message('title') }}</p>
+    }
+
+    <label for="product-price">Price</label>
+    <input
+      id="product-price"
+      formControlName="price"
+      inputmode="decimal"
+      autocomplete="off"
+      [attr.aria-invalid]="show('price')"
+      [attr.aria-describedby]="show('price') ? 'product-price-error' : null"
+    />
+    @if (show('price')) {
+      <p id="product-price-error" class="field-error">{{ message('price') }}</p>
+    }
+
+    <label for="product-description">Description</label>
+    <textarea
+      id="product-description"
+      formControlName="description"
+      rows="4"
+      [attr.aria-invalid]="show('description')"
+      [attr.aria-describedby]="show('description') ? 'product-description-error' : null"
+    ></textarea>
+    @if (show('description')) {
+      <p id="product-description-error" class="field-error">{{ message('description') }}</p>
+    }
+
+    <label for="product-category">Category</label>
+    <select id="product-category" formControlName="category">
+      @for (slug of categoryOptions(); track slug) {
+        <option [value]="slug">{{ label(slug) }}</option>
+      }
+    </select>
+    @if (show('category')) {
+      <p class="field-error">{{ message('category') }}</p>
+    }
+
+    <label for="product-tags">Tags <span class="hint">Optional, comma separated</span></label>
+    <input id="product-tags" formControlName="tags" autocomplete="off" />
+    @if (show('tags')) {
+      <p class="field-error">{{ message('tags') }}</p>
+    }
+
+    <div class="actions">
+      <button type="button" class="secondary" (click)="cancel()">Cancel</button>
+      <button type="submit" [disabled]="saving()">
+        {{ saving() ? 'Saving' : 'Save product' }}
+      </button>
+    </div>
+  </form>
+</dialog>

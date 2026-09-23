@@ -1,0 +1,12 @@
+<div class="toasts">
+  @for (toast of toasts(); track toast.id) {
+    <p
+      class="toast"
+      [class.success]="toast.kind === 'success'"
+      [class.error]="toast.kind === 'error'"
+      [attr.role]="toast.kind === 'error' ? 'alert' : 'status'"
+    >
+      {{ toast.message }}
+    </p>
+  }
+</div>
